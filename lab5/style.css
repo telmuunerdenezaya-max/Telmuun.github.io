@@ -1,6 +1,6 @@
 .container{
   width: 100%;
-  height: h-screen;
+  height:auto;
 }
 
 .first-div{
@@ -10,6 +10,7 @@
   gap: 1.6px;
   background-color:#1B1B6C;
   color:white;
+  margin-left:0px;
 }
 .first-div p{
   display: flex;
@@ -305,11 +306,44 @@ button{
   }
 
   .container{
-    min-height: 100vh; /* зөвхөн mobile-д */
+    min-height: auto; /* зөвхөн mobile-д */
+  }
+  .my-video {
+    width: 90%;
+  }
+  .second-button {
+    margin-left:25px;
+    width:90%;
+  }
+  .whoa {
+    font-size:12px;
+  }
+  .third-button{
+    margin-left:25px;
+    width:90%;
+    margin-top: -8px;
+  }
+  .fourth-button{
+    margin-left:25px;
+    width:90%;
+  }
+  .search{
+    margin-left:25px;
+    width:90%;
+  }
+  .test{
+    margin-left:25px;
+    width:90%;
+  }
+  .copyright{
+    margin-top:600px;
   }
 }
 
 @media (max-width: 480px){
+  .container{
+    width:auto;
+  }
   .first-div p{
     font-size: 10px;
   }
@@ -324,6 +358,36 @@ button{
 
   .main-first .Sentence{
     font-size: 12px;
+    width:91%;
+  }
+  .my-video {
+    width: 90%;
+  }
+  .second-button {
+    margin-left:25px;
+    width:90%;
+  }
+  .whoa {
+    font-size:12px;
+  }
+  .third-button{
+    margin-left:25px;
+    width:90%;
+    margin-top: -8px;
+  }
+  .fourth-button{
+    margin-left:25px;
+    width:90%;
+  }
+  .search{
+    margin-left:25px;
+    width:90%;
+  }
+  .test{
+    margin-left:25px;
+    width:90%;
+  }
+  .copyright{
+    margin-top:560px;
   }
 }
-
