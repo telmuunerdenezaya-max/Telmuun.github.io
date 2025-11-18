@@ -281,3 +281,49 @@ button{
   margin-right:15px;
   margin-bottom:-6px;
 }
+
+@media (max-width: 768px){
+  .second-container{
+    flex-direction: column; /* баганууд stacked болно */
+  }
+
+  .main-first, .main-second{
+    width: 100%;
+    margin: 0;
+    flex: 1 1 100%; /* stacked mobile */
+  }
+
+  .third-button, .fourth-button, .Send, .second-button{
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .my-video{
+    width: 100%;
+    height: auto;
+  }
+
+  .container{
+    min-height: 100vh; /* зөвхөн mobile-д */
+  }
+}
+
+@media (max-width: 480px){
+  .first-div p{
+    font-size: 10px;
+  }
+  
+  .second-div b{
+    font-size: 30px;
+  }
+
+  .main-first p{
+    font-size: 20px;
+  }
+
+  .main-first .Sentence{
+    font-size: 12px;
+  }
+}
+
