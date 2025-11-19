@@ -2,7 +2,10 @@
   width: 100%;
   height:auto;
 }
-
+body {
+    margin: 0;
+    padding: 0;
+}
 .first-div{
   width: 100%;
   height: 39px;
