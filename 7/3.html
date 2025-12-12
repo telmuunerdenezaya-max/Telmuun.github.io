@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    body{
+        font-size:50px;
+        display:flex;
+        justify-content:center;
+        margin-top:320px;
+        border: 2px solid black;
+        display: inline-block;
+        margin-left:500px;
+    }
+</style>
+</head>
+    <div class= "first"><a href="1.html">1-р бодлого</a></div>
+    <div class= "second"><a href="2.html">2-р бодлого</a></div>
+    <div class= "fourth"><a href="4.html">4-р бодлого</a></div>
+    <div class= "fifth"><a href="5.html">5-р бодлого</a></div>
+<body>
+    <script>
+        var toot=parseInt(prompt('Тоотыг оруулна уу: '));
+        var orts=Math.floor(toot/36)+1;
+        toot=toot-36*(orts-1);
+        var dawhar=Math.floor(toot/4);
+        dawhar++;
+        var a=dawhar*4;
+        if((a-toot)==0) {
+            dawhar--;}
+        document.write('Хариу: ', orts+"-р орц", " ", dawhar+"-р давхар");
+       </script>
+</body>
+</html>

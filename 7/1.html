@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    body{
+        font-size:50px;
+        display:flex;
+        justify-content:center;
+        margin-top:230px;
+        border: 2px solid black;
+        display: inline-block;
+        margin-left:370px;
+        margin-right:300px;
+    }
+</style>
+</head>
+<body>
+    <div class= "second"><a href="2.html">2-р бодлого</a></div>
+    <div class= "third"><a href="3.html">3-р бодлого</a></div>
+    <div class= "fourth"><a href="4.html">4-р бодлого</a></div>
+    <div class= "fifth"><a href="5.html">5-р бодлого</a></div>
+    <script>
+        var too=parseInt(prompt('toog oruulna uu'));
+        
+        var sum=0;
+        var k=1;
+        while(too>0) {
+            sum=sum+(too%10);
+            too = Math.floor(too/10);
+        } document.write('niilber ni: ', sum, " ")
+        var s=0; var oposite=sum;
+        if(sum<10) {
+            document.write('ene ni 1 orontoi too baina'+" ");
+            document.write('bi garlaa');
+        } else {
+            while(sum>0){
+                a=sum%10;
+                s=s*10+a;
+                sum = Math.floor(sum/10);
+            }
+        }
+        if(s==oposite) {
+            document.write(' ba ene ni palindrom too muun');
+        } else {
+            document.write(' ene arai bishee');
+        }
+    </script>
+    
+</body>
+</html>

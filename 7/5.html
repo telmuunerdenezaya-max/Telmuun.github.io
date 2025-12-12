@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    body{
+        font-size:50px;
+        display:flex;
+        justify-content:center;
+        margin-top:320px;
+        border: 2px solid black;
+        display: inline-block;
+        margin-left:650px;
+    }
+</style>
+</head>
+<body>
+    <div class= "first"><a href="1.html">1-р бодлого</a></div>
+    <div class= "second"><a href="2.html">2-р бодлого</a></div>
+    <div class= "third"><a href="3.html">3-р бодлого</a></div>
+    <div class= "fourth"><a href="4.html">4-р бодлого</a></div>
+    <script>
+var tsag = parseFloat(prompt("Тоог оруулна уу:"));
+if(isNaN(tsag)) {
+    alert("Зөвхөн тоо оруулна уу!");
+} else {
+    const now = new Date();
+    const options = { timeZone: "Asia/Ulaanbaatar", hour: '2-digit', hour12: false, hourCycle: 'h23' };
+    const hours = parseInt(now.toLocaleString("en-US", options));
+
+    if(hours >= 0 && hours < 12) {
+        tsag = tsag ** 2;
+        document.write('Хариу: ', tsag);
+    } else if(hours >= 12 && hours < 24) {
+        tsag=Math.floor((Math.sqrt(tsag)*10))/10;
+        document.write('Хариу: ', tsag);
+    }
+}
+</script>
+
+</body>
+</html>
