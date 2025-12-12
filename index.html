@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+
+<title>Hangman</title>
+</head>
+<body>
+
+
+
+<div class="container">
+    <div class="title"><h2>Hangman</h2></div>
+
+
+<!-- Үг оруулах хэсэг -->
+
+<input id="wordInput" type="password" placeholder="Нууц үгээ бич">
+<button id="setBtn">Set word</button>
+<img id="hangmanImg" src="0.jpg" alt="Hangman Image">
+<div id="maskedWord"></div>
+<div id="letters"></div>
+</div>
+
+
+<script>
+let word = "";
+let mask = [];
+let lettersDiv = document.getElementById("letters");
+let i=0;
+let wrongGuesses = 0;
+let maxWrong = 5;
+
+
+document.getElementById("setBtn").onclick = function() {
+    word = document.getElementById("wordInput").value.toLowerCase();
+    if(!word) return alert("Үгээ оруулна уу!");
+
+    // Маск үүсгэх
+    mask = Array(word.length).fill("_");
+    document.getElementById("maskedWord").textContent = mask.join(" ");
+
+    // 🔥 ШИНЭ ТОГЛООМ ЭХЛЭХДЭЭ ЗААВАЛ 0.JPG → эхлэл
+    wrongGuesses = 0;
+    i = 0;
+    document.getElementById("hangmanImg").src = `0.jpg`;
+
+    // Үсэгний товчлуурууд үүсгэх
+    lettersDiv.innerHTML = "";
+    "abcdefghijklmnopqrstuvwxyz".split("").forEach(ch => {
+        let btn = document.createElement("button");
+        btn.textContent = ch;
+        btn.onclick = () => guessLetter(ch, btn);
+        lettersDiv.appendChild(btn);
+    });
+};
+
+
+
+
+function guessLetter(letter, btn) {
+    let correct = false;
+
+    for(; i < word.length;) {
+        if(word[i] === letter && mask[i] === "_") { 
+            mask[i] = letter;
+            i++;
+            correct = true;
+            break;
+        } else {
+            break;   
+        }
+    }
+
+    document.getElementById("maskedWord").textContent = mask.join(" ");
+
+
+    if(!correct) {
+    wrongGuesses++;
+    document.getElementById("hangmanImg").src = `${wrongGuesses}.jpg`;
+
+if(wrongGuesses >= maxWrong) {
+    // 5-р зураг гаргах
+    document.getElementById("hangmanImg").src = `5.jpg`;
+
+    // Бага хугацааны турш зураг харагдахаар setTimeout ашиглах
+    setTimeout(() => {
+        alert("Боломж дууслаа! Үг: " + word);
+
+        // Шинэ тоглоом эхлэх
+        mask = Array(word.length).fill("_");
+        i = 0;
+        wrongGuesses = 0;
+        document.getElementById("maskedWord").textContent = mask.join(" ");
+        document.getElementById("hangmanImg").src = `0.jpg`;
+
+        // Товчлууруудыг идэвхжүүлэх
+        lettersDiv.querySelectorAll("button").forEach(b => b.disabled = false);
+        document.getElementById("wordInput").value = "";
+    }, 50); // 50ms дараа alert гарна
+}
+
+}
+
+    if(!mask.includes("_")) {
+        alert("Таажиин Таажийн :)");
+        lettersDiv.innerHTML = "";
+        document.getElementById("wordInput").value = "";
+    }
+}
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
