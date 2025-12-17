@@ -3,17 +3,17 @@ body {
     padding: 0;
     overflow: hidden;
     display: flex;
-    justify-content: center; /* Хэвтээ голд төвлөрүүлэх */
-    align-items: center;     /* Босоо голд төвлөрүүлэх */
-    height: 100vh;           /* Бүх дэлгэцийн өндөр */
+    justify-content: center; 
+    align-items: center;    
+    height: 100vh;     
 }
 
 .road-container {
-    width: 800px; /* эсвэл хүссэн ширхэгтэй */
+    width: 800px; 
     height: 800px;
     overflow: hidden;
-    position: relative; /* absolute → relative */
-    margin: 0 auto; /* төвд байрлуулах */
+    position: relative; 
+    margin: 0 auto; 
 }
 
 
@@ -26,7 +26,7 @@ body {
 .car {
     position: absolute;
     bottom: 50px;
-    left: 370px; /* эхний байрлал пикселээр */
+    left: 370px; 
     width: 60px;
     z-index: 10;
     transition: left 0.3s ease;
@@ -40,8 +40,26 @@ body {
 }
 .player {
     position: absolute;
-    top: 500px; /* замаас дээшийн байрлал */
-    left: 398px; /* эхэнд төв lane */
+    top: 500px; 
+    left: 398px; 
     width: 50px;
     transition: left 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .car {
+    position: absolute;
+    bottom: 50px;
+    left: 100px; 
+    width: 35px;
+    z-index: 10;
+    transition: left 0.3s ease;
+
+    }
+    .enemy {
+    position: absolute;
+    width: 35px;
+    height:70px;
+    z-index: 5;
+}
 }

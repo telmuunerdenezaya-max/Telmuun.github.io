@@ -20,7 +20,7 @@
 
 <div class="road-container">
   <div class="road-strip" id="roadStrip">
-    <img src="road.jpg">   <!-- хамгийн доод -->
+    <img src="road.jpg">  
 <img src="road1.jpg">
 <img src="road2.jpg">
 <img src="road3.jpg">
@@ -75,7 +75,7 @@
 <img src="road3.jpg">
 </div>
 
-    <!-- Машин background-гүй PNG -->
+
     <img src="car.png" id="car" class="car">
 
     <img src="enemy1.png" class="enemy">
@@ -108,18 +108,21 @@ moveRoad();
 
 
 
+const containerWidth = document.querySelector('.road-container').offsetWidth;
+const laneX = [
+    containerWidth * 0.26,
+    containerWidth * 0.46,
+    containerWidth * 0.67
+];
 
-
-// Lane болон enemy тохиргоо
-const laneX = [205, 370, 538];
 let laneOccupied = [false, false, false];
 const container = document.querySelector('.road-container');
 const containerHeight = container.offsetHeight;
 const enemies = Array.from(document.querySelectorAll('.enemy'));
 
-let gameOver = false; // collision flag
+let gameOver = false;
 
-// Enemy-г хөдөлгөх
+
 function moveEnemy(enemy, laneIndex) {
     const speed = 4;
     function animate() {
@@ -144,9 +147,9 @@ function moveEnemy(enemy, laneIndex) {
 
 
 
-// Enemy spawn
+
 function spawnEnemies() {
-    if(gameOver) return; // collision үед spawn зогсооно
+    if(gameOver) return; 
 
     let availableLanes = laneX.map((x,i) => !laneOccupied[i] ? i : null)
                               .filter(i => i !== null);
@@ -184,7 +187,7 @@ function spawnEnemies() {
 
 
 
-// Collision шалгах
+
 function checkCollision() {
     const carRect = car.getBoundingClientRect();
     for(let enemy of enemies){
@@ -212,24 +215,24 @@ const gameOverMessage = document.getElementById('gameOverMessage');
 function resetGame() {
     gameOver = true;
 
-    // Game Over message харуулах
+    
     gameOverMessage.style.display = 'block';
 
-    // Car-г эх байрлал руу
+    
     car.style.left = "370px";
     car.style.bottom = "50px";
 
-    // Enemy-г дахин дээш байрлуулах
+    
     enemies.forEach(enemy => {
         enemy.style.top = "-150px";
     });
 
     laneOccupied = [false,false,false];
 
-    // 1 секунд хүлээлгээд тоглоом дахин эхлүүлэх
+    
     setTimeout(() => {
         gameOver = false;
-        gameOverMessage.style.display = 'none'; // message нуух
+        gameOverMessage.style.display = 'none';
         spawnEnemies();
     }, 1000);
 }
@@ -239,7 +242,7 @@ function resetGame() {
 
 
 
-const borderMargin = 140; // Game Over гаргах өмнө хэдэн px margin үлдэх
+const borderMargin = 140; 
 
 function checkCarOutOfRoad() {
     const carRect = car.getBoundingClientRect();
@@ -247,7 +250,7 @@ function checkCarOutOfRoad() {
 
     if(carRect.left < containerRect.left + borderMargin ||
        carRect.right > containerRect.right - borderMargin){
-        resetGame(); // Car замаас гарах margin хүрсэн тул тоглоом дуусна
+        resetGame(); 
     }
 }
 
@@ -258,10 +261,10 @@ function checkCarOutOfRoad() {
 
 
 
-// Collision шалгах loop
+
 setInterval(() => {
     checkCollision();
-    checkCarOutOfRoad(); // car замаас гарах эсэхийг шалгах
+    checkCarOutOfRoad(); 
 }, 20);
 
 
@@ -270,10 +273,10 @@ setInterval(() => {
 
 
 
-// Эхлүүлэх
+
 spawnEnemies();
 
-// Car keyboard control
+
 const car = document.getElementById('car');
 let moveInterval = null;
 const speed = 60;
