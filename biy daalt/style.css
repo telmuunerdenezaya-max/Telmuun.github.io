@@ -45,13 +45,3 @@ body {
     width: 50px;
     transition: left 0.3s ease;
 }
-.gameOverMessage {
-    position:absolute;
-    top:40%;
-    left:50%;
-    transform:translate(-50%, -50%);
-    font-size:48px;
-    color:red;
-    display:none;
-    z-index:20;
-}
