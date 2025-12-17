@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center; /* Хэвтээ голд төвлөрүүлэх */
+    align-items: center;     /* Босоо голд төвлөрүүлэх */
+    height: 100vh;           /* Бүх дэлгэцийн өндөр */
+}
+
+.road-container {
+    width: 800px; /* эсвэл хүссэн ширхэгтэй */
+    height: 800px;
+    overflow: hidden;
+    position: relative; /* absolute → relative */
+    margin: 0 auto; /* төвд байрлуулах */
+}
+
+
+.road-strip img {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.car {
+    position: absolute;
+    bottom: 50px;
+    left: 370px; /* эхний байрлал пикселээр */
+    width: 60px;
+    z-index: 10;
+    transition: left 0.3s ease;
+}
+
+.enemy {
+    position: absolute;
+    width: 60px;
+    height: 120px;
+    z-index: 5;
+}
+.player {
+    position: absolute;
+    top: 500px; /* замаас дээшийн байрлал */
+    left: 398px; /* эхэнд төв lane */
+    width: 50px;
+    transition: left 0.3s ease;
+}

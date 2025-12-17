@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Бие даалт</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="gameOverMessage" style="
+    position:absolute;
+    top:40%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    font-size:48px;
+    color:red;
+    display:none;
+    z-index:20;
+">Game Over</div>
+
+<div class="road-container">
+  <div class="road-strip" id="roadStrip">
+    <img src="road.jpg">   <!-- хамгийн доод -->
+<img src="road1.jpg">
+<img src="road2.jpg">
+<img src="road3.jpg">
+<img src="road.jpg">
+<img src="road1.jpg">
+<img src="road2.jpg">
+<img src="road3.jpg">
+<img src="road1.jpg">
+<img src="road2.jpg">
+<img src="road3.jpg">
+<img src="road1.jpg">
+<img src="road2.jpg">
+<img src="road3.jpg">
+<img src="road1.jpg">
+<img src="road2.jpg">
+<img src="road3.jpg">
+<img src="road1.jpg">
+<img src="road2.jpg">
+<img src="road3.jpg">
+<img src="road1.jpg">
+<img src="road2.jpg">
+<img src="road3.jpg">
+<img src="road1.jpg">
+<img src="road2.jpg">
+<img src="road3.jpg">
+<img src="road1.jpg">
+<img src="road2.jpg">
+<img src="road3.jpg">
+<img src="road1.jpg">
+<img src="road2.jpg">
+<img src="road3.jpg">
+<img src="road1.jpg">
+<img src="road2.jpg">
+<img src="road3.jpg">
+<img src="road1.jpg">
+<img src="road2.jpg">
+<img src="road3.jpg">
+<img src="road1.jpg">
+<img src="road2.jpg">
+<img src="road3.jpg">
+<img src="road1.jpg">
+<img src="road2.jpg">
+<img src="road3.jpg">
+<img src="road1.jpg">
+<img src="road2.jpg">
+<img src="road3.jpg">
+<img src="road1.jpg">
+<img src="road2.jpg">
+<img src="road3.jpg">
+<img src="road1.jpg">
+<img src="road2.jpg">
+<img src="road3.jpg">
+</div>
+
+    <!-- Машин background-гүй PNG -->
+    <img src="car.png" id="car" class="car">
+
+    <img src="enemy1.png" class="enemy">
+    <img src="enemy1.png" class="enemy">
+</div>
+  </div>
+
+
+
+
+
+
+
+
+<script>
+const roadStrip = document.getElementById('roadStrip');
+const totalHeight = roadStrip.scrollHeight / 2; 
+let posY = 0; 
+const scrollSpeed = 3.7;
+
+function moveRoad() {
+    posY -= scrollSpeed;
+    if(posY <= 0) posY += totalHeight;
+    roadStrip.style.transform = `translateY(${-posY}px)`;
+    requestAnimationFrame(moveRoad);
+}
+moveRoad();
+
+
+
+
+
+
+
+// Lane болон enemy тохиргоо
+const laneX = [205, 370, 538];
+let laneOccupied = [false, false, false];
+const container = document.querySelector('.road-container');
+const containerHeight = container.offsetHeight;
+const enemies = Array.from(document.querySelectorAll('.enemy'));
+
+let gameOver = false; // collision flag
+
+// Enemy-г хөдөлгөх
+function moveEnemy(enemy, laneIndex) {
+    const speed = 4;
+    function animate() {
+        if(gameOver) return;
+        let posY = parseFloat(enemy.style.top) || -150;
+        posY += speed;
+        enemy.style.top = posY + "px";
+
+        if(posY > containerHeight){
+            laneOccupied[laneIndex] = false;
+            enemy.style.top = "-150px";
+            return;
+        }
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+
+
+
+
+
+
+// Enemy spawn
+function spawnEnemies() {
+    if(gameOver) return; // collision үед spawn зогсооно
+
+    let availableLanes = laneX.map((x,i) => !laneOccupied[i] ? i : null)
+                              .filter(i => i !== null);
+
+    if(availableLanes.length < 2){
+        setTimeout(spawnEnemies, 1000);
+        return;
+    }
+
+    let laneIndices = [];
+    for(let i=0; i<2; i++){
+        const idx = availableLanes.splice(Math.floor(Math.random()*availableLanes.length),1)[0];
+        laneIndices.push(idx);
+        laneOccupied[idx] = true;
+    }
+
+    laneIndices.forEach(laneIndex => {
+        let enemy = enemies.shift();
+        enemies.push(enemy);
+
+        enemy.style.left = laneX[laneIndex] + "px";
+        enemy.style.top = "-150px";
+        enemy.dataset.speed = 4;
+
+        moveEnemy(enemy, laneIndex);
+    });
+
+    setTimeout(spawnEnemies, Math.random()*500 + 1000);
+}
+
+
+
+
+
+
+
+
+// Collision шалгах
+function checkCollision() {
+    const carRect = car.getBoundingClientRect();
+    for(let enemy of enemies){
+        const enemyRect = enemy.getBoundingClientRect();
+        if (!(carRect.right < enemyRect.left ||
+              carRect.left > enemyRect.right ||
+              carRect.bottom < enemyRect.top ||
+              carRect.top > enemyRect.bottom)){
+            resetGame();
+            break;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+const gameOverMessage = document.getElementById('gameOverMessage');
+
+function resetGame() {
+    gameOver = true;
+
+    // Game Over message харуулах
+    gameOverMessage.style.display = 'block';
+
+    // Car-г эх байрлал руу
+    car.style.left = "370px";
+    car.style.bottom = "50px";
+
+    // Enemy-г дахин дээш байрлуулах
+    enemies.forEach(enemy => {
+        enemy.style.top = "-150px";
+    });
+
+    laneOccupied = [false,false,false];
+
+    // 1 секунд хүлээлгээд тоглоом дахин эхлүүлэх
+    setTimeout(() => {
+        gameOver = false;
+        gameOverMessage.style.display = 'none'; // message нуух
+        spawnEnemies();
+    }, 1000);
+}
+
+
+
+
+
+
+const borderMargin = 140; // Game Over гаргах өмнө хэдэн px margin үлдэх
+
+function checkCarOutOfRoad() {
+    const carRect = car.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+
+    if(carRect.left < containerRect.left + borderMargin ||
+       carRect.right > containerRect.right - borderMargin){
+        resetGame(); // Car замаас гарах margin хүрсэн тул тоглоом дуусна
+    }
+}
+
+
+
+
+
+
+
+
+// Collision шалгах loop
+setInterval(() => {
+    checkCollision();
+    checkCarOutOfRoad(); // car замаас гарах эсэхийг шалгах
+}, 20);
+
+
+
+
+
+
+
+// Эхлүүлэх
+spawnEnemies();
+
+// Car keyboard control
+const car = document.getElementById('car');
+let moveInterval = null;
+const speed = 60;
+
+document.addEventListener('keydown', (event) => {
+    if(event.key.toLowerCase() === 'a' && !moveInterval){
+        moveInterval = setInterval(() => {
+            let currentLeft = parseFloat(getComputedStyle(car).left);
+            car.style.left = (currentLeft - speed) + "px";
+        }, 20);
+    }
+    if(event.key.toLowerCase() === 'd' && !moveInterval){
+        moveInterval = setInterval(() => {
+            let currentLeft = parseFloat(getComputedStyle(car).left);
+            car.style.left = (currentLeft + speed) + "px";
+        }, 20);
+    }
+});
+
+document.addEventListener('keyup', (event) => {
+    if(event.key.toLowerCase() === 'a' || event.key.toLowerCase() === 'd'){
+        clearInterval(moveInterval);
+        moveInterval = null;
+    }
+});
+
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
