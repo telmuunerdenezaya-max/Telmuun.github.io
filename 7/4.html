@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-<style>
+    <title>LCM of 5 numbers</title>
+    <style>
     body{
         font-size:50px;
         display:flex;
@@ -12,43 +12,40 @@
         margin-top:320px;
         border: 2px solid black;
         display: inline-block;
-        margin-left:650px;
+        margin-left:500px;
     }
 </style>
 </head>
-    <div class= "first"><a href="1.html">1-р бодлого</a></div>
-    <div class= "second"><a href="2.html">2-р бодлого</a></div>
-    <div class= "third"><a href="3.html">3-р бодлого</a></div>
-    <div class= "fifth"><a href="5.html">5-р бодлого</a></div> 
 <body>
-    <script>
-        var i=0;
-        var a = new Array(5); 
-        while(i<5) {
+<script>
+    // Хэрэглэгчээс 5 тоог авна
+    let a = [];
+    for(let i=0; i<5; i++){
         a[i] = parseInt(prompt((i+1) + "-р элемент: "));
-        i++;
-        }
-        i=0;
-        Max = Math.max(...a);
-        var n=1; 
-        var count;
-        var t=0;
-            while(n<=Max){
-                count=0;
-            for(i=0; i<5; i++) {
-                if(a[i]%n==0) {
-                    count++;
-                }
-            } 
-            if(count==5) {
-            if(n>t) {
-                t=n;
-            }
-            } n++;
-            }
+    }
 
-        
-        document.write('Хариу: ', t);
-       </script>
+    // 2 тооны GCD олох функц
+    function gcd(x, y){
+        while(y != 0){
+            let temp = y;
+            y = x % y;
+            x = temp;
+        }
+        return x;
+    }
+
+    // 2 тооны LCM олох функц
+    function lcm(x, y){
+        return (x * y) / gcd(x, y);
+    }
+
+    // Array дахь бүх элементийн LCM олох
+    let result = a[0];
+    for(let i=1; i<5; i++){
+        result = lcm(result, a[i]);
+    }
+
+    document.write("5 тооны хамгийн бага ерөнхий хуваагдагч (LCM): " + result);
+</script>
 </body>
 </html>
